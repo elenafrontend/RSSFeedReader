@@ -1,50 +1,84 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report
+Version change: Unversioned scaffold -> 1.0.0
+Defined principles:
+- I. Secure by Default
+- II. Scope and User Value
+- III. Maintainable Simplicity
+- IV. Verified Quality
+- V. Clear, Accessible UX
+Added sections: Project Constraints; Development Workflow and Quality Gates
+Removed sections: None
+Follow-up TODOs: None
+-->
+# RSS Feed Reader Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Secure by Default
+Treat URLs, feed metadata, and feed content as untrusted input. Validate inputs at system
+boundaries, protect secrets from source control and logs, and use safe output encoding. Any
+feature that fetches feeds MUST restrict requests to HTTP(S), prevent access to local or
+private-network destinations (including after redirects), and enforce time and response-size
+limits. Feed HTML MUST be sanitized before rendering. These controls prevent the reader from
+becoming a path to server-side request forgery, secret exposure, or unsafe content execution.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Scope and User Value
+Every change MUST support a user need in the approved feature specification or be required for
+security, reliability, accessibility, or maintainability. Keep delivery incremental and avoid
+unrequested feed-reader features. Resolve conflicts between stakeholder notes through the
+current approved specification and plan; do not treat older planning documents as authorization
+to expand scope. This keeps the proof-of-concept focused while allowing deliberate evolution.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Maintainable Simplicity
+Prefer the simplest design that meets the approved requirements, with clear boundaries between
+the ASP.NET Core API, Blazor UI, and persistence responsibilities. Reuse existing project
+patterns and dependencies; add abstractions or packages only when they materially reduce
+complexity or enable a required capability. Changes to the established .NET, ASP.NET Core,
+Blazor, or SQLite technology choices MUST be justified in the plan before implementation.
+Simple, consistent code reduces learning and maintenance costs.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Verified Quality
+New behavior and bug fixes MUST have relevant automated tests. Changes to API behavior or
+component interactions MUST include tests at the appropriate integration boundary. Before
+completion, run the narrowest applicable tests and build or type-check, and report any
+validation that could not be completed. Tests and explicit verification make regressions
+visible and keep the application dependable.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Clear, Accessible UX
+User-facing flows MUST provide clear labels, understandable feedback for success and failure,
+and keyboard-accessible controls. Keep presentation focused on the approved feature scope and
+consistent with existing UI patterns. Verify affected flows at relevant viewport sizes when
+layout changes. A simple, accessible interface supports the project's demonstration purpose
+without requiring unnecessary polish.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Project Constraints
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+The project is a locally run, single-user RSS/Atom reader developed to run on Windows, macOS,
+and Linux. The established application stack is .NET, ASP.NET Core, Blazor, and SQLite. A
+proposal to change these constraints MUST explain the user or engineering benefit and assess
+migration impact in its plan. Specific feature scope and behavior are defined by the current
+approved specifications, not by this summary.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Development Workflow and Quality Gates
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+Feature work MUST proceed from an approved specification and plan to actionable tasks before
+implementation. Plans MUST identify relevant security, compatibility, accessibility, and
+testing implications. Reviews MUST check the change against this constitution, the approved
+scope, and the affected tests. Do not mark work complete until applicable validation has passed
+or its limitation and impact have been documented. At the end of each completed development
+workflow, provide a suggested commit message summarizing the changes. Do not create a commit
+unless the user explicitly requests one. This makes completion guidance consistent without
+committing changes without authorization.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution governs project decisions and takes precedence over conflicting implementation
+guidance. Amendments MUST be made in a reviewed change that states the rationale and updates
+the version, amendment date, and sync impact report. Versioning follows semantic versioning:
+MAJOR for incompatible principle or governance changes, MINOR for new principles or materially
+expanded requirements, and PATCH for clarifications and non-semantic wording changes. Project
+maintainers review compliance during specification, planning, and code review; deviations MUST
+be justified in the relevant plan or review and must not weaken security safeguards.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2026-10-28 | **Last Amended**: 2026-10-28
